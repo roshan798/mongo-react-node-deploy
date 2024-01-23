@@ -3,20 +3,17 @@ WORKDIR /frontend
 COPY ./frontend/package*.json ./
 RUN npm install
 COPY ./frontend ./
-CMD [ "npm", "run", "build" ]
+RUN npm run build
 
 FROM ubuntu:24.04
+
 RUN apt update -y \
-    && apt install nginx curl vim -y \
-    && apt-get install software-properties -y \
-    && add-get-repository ppa:certbot/certbot -y\
-    && apt-get update -y \
-    && apt-get install python-certbot-nginx -y \
+    && apt install -y nginx curl vim\
+    && apt-get install -y software-properties-common \
     && apt-get clean
 
 EXPOSE 80
 STOPSIGNAL SIGTERM
-
 COPY  --from=build /frontend/dist /var/www/html
 
 CMD [ "nginx", "-g", "daemon off;" ]

@@ -2,16 +2,17 @@ const express = require('express')
 require('dotenv').config()
 const cors = require('cors')
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 8000
 const User = require('./userModal.js')
 const connectDB = require('./database.js')
 app.use(express.json({ limit: '8mb' }))
 // Enable CORS for the React app at http://localhost:5173
+
 const corsOptions = {
-  origin: process.env.FRONTEND_URL,
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-app.use(cors(corsOptions))
+  origin: [process.env.FRONTEND_URL],
+  credentials: true,
+};
+app.use(cors())
 connectDB()
 
 app.get('/', (req, res) => {

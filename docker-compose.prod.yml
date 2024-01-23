@@ -8,6 +8,7 @@ services:
       - "27017:27017"
     volumes:
       - /learnaws/Documents/databases/mongodb/learnaws-data:/data/db
+
   backend:
     build:
       dockerfile: Dockerfile.prod
@@ -23,6 +24,7 @@ services:
       - /backend/node_modules
     depends_on:
       - mongodb
+
   frontend:
     build:
       dockerfile: Dockerfile.prod
@@ -31,10 +33,3 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    env_file:
-      - ./frontend/.env
-    volumes:
-      - deploy/default.conf:etc/nginx/sites-available/default
-      - /var/certs/etc-letsencrypt:/etc/letsencrypt
-    depends_on:
-      - backend
