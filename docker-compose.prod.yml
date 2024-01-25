@@ -16,7 +16,7 @@ services:
     container_name: backend
     restart: always
     ports:
-      - "8000:8000"
+      - "5500:5500"
     env_file:
       - ./backend/.env
     volumes:
@@ -33,3 +33,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - ./deploy/default.conf:/etc/nginx/sites-available/default
+      - /var/certs/etc-letsencrypt:/etc/letsencrypt
+    depends_on:
+      - backend

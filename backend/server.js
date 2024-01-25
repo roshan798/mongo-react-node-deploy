@@ -6,7 +6,6 @@ const port = process.env.PORT || 8000
 const User = require('./userModal.js')
 const connectDB = require('./database.js')
 app.use(express.json({ limit: '8mb' }))
-// Enable CORS for the React app at http://localhost:5173
 
 const corsOptions = {
   origin: [process.env.FRONTEND_URL],
@@ -19,7 +18,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get('/users', async (req, res) => {
+app.get('/api/users', async (req, res) => {
   try {
     const users = await User.find()
     res.json(users)
@@ -32,7 +31,7 @@ app.get('/users', async (req, res) => {
 //   name : "roshan kumar",
 // }
 
-app.post('/users', async (req, res) => {
+app.post('/api/users', async (req, res) => {
   const { name } = req.body
   try {
     let user = new User({

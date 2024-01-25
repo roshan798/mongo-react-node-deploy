@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_API_URL}/users`)
+      .get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/users`)
       .then((response) => {
         setUsers(response.data)
       })
@@ -19,7 +19,7 @@ function App() {
 
   const handleSubmit = () => {
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_API_URL}/users`, { name })
+      .post(`${import.meta.env.VITE_REACT_APP_API_URL}/api/users`, { name })
       .then((response) => {
         setUsers([...users, response.data])
         setName('')
